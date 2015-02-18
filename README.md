@@ -140,7 +140,7 @@ Therefore, a typical work flow involves the following steps at minimum:
 
 #### Example ####
 
-Given the following table of `timeseries` modeling the network bandwidth usage into and out of a hyptothetical
+Given the following table of `timeseries` modeling the network bandwidth usage into and out of a hypothetical
 ISP (Internet Service Provider) for various types of traffic routing relationships with customers and other
 ISPs:
 
@@ -327,7 +327,7 @@ Stephen J. Scheck <singularsyntax@gmail.com>
 Copyright and License
 ---------------------
 
-Copyright (c) 2015, Stephen J. Scheck. All rights reserved.
+Copyright (c) 2013-2015, Stephen J. Scheck. All rights reserved.
 
 This extension is released under the PostgreSQL License, a liberal Open Source
 license, similar to the BSD or MIT licenses. See the LICENSE file included in
