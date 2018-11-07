@@ -5,6 +5,22 @@ The timeseries extension implements a new data type, `timeseries`, as well as a 
 functions for creating, updating, selecting, and transforming them and the sample values which
 comprise them.
 
+Status
+------
+
+Development on this project has been halted. Further understanding of PostgreSQL architecture
+and implementation have made it clear that Postgres LOs (BLOBs) are an inefficient mechanism
+for storing time series data in a [columnar](https://en.wikipedia.org/wiki/Column-oriented_DBMS)
+fashion. Because PostgreSQL employs [MVCC](https://en.wikipedia.org/wiki/Multiversion_concurrency_control),
+whenever a LO is updated, the database must make a copy of the entire binary data page underlying
+the LO. Needless to say, this is highly inefficient for small data writes such as a single sample,
+and thus they are only suitable for immutable or infrequently updated data. This [thread](https://www.postgresql.org/message-id/CAKjnHz1V%2BSK7hHPgA8FHKDuo7PMekCui3%3DjevbYgGGJr05dX%2BQ%40mail.gmail.com) on the [pgsql-general](https://www.postgresql.org/list/pgsql-general/)
+mailing list provides more discussion.
+
+At some point, development may be restarted when a suitable alternate implementation is
+identified, perhaps via a [foreign data wrapper](https://www.postgresql.org/docs/current/ddl-foreign-data.html)
+or direct file system interface.
+
 Availability
 ------------
 
