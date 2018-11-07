@@ -343,7 +343,7 @@ Stephen J. Scheck <singularsyntax@gmail.com>
 Copyright and License
 ---------------------
 
-Copyright (c) 2013-2015, Stephen J. Scheck. All rights reserved.
+Copyright (c) 2013-2018, Stephen J. Scheck. All rights reserved.
 
 This extension is released under the PostgreSQL License, a liberal Open Source
 license, similar to the BSD or MIT licenses. See the LICENSE file included in
