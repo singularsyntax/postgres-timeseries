@@ -12,10 +12,15 @@ Development on this project has been halted. Further understanding of PostgreSQL
 and implementation have made it clear that Postgres LOs (BLOBs) are an inefficient mechanism
 for storing time series data in a [columnar](https://en.wikipedia.org/wiki/Column-oriented_DBMS)
 fashion. Because PostgreSQL employs [MVCC](https://en.wikipedia.org/wiki/Multiversion_concurrency_control),
-whenever a LO is updated, the database must make a copy of the entire binary data page underlying
-the LO. Needless to say, this is highly inefficient for small data writes such as a single sample,
-and thus they are only suitable for immutable or infrequently updated data. This [thread](https://www.postgresql.org/message-id/CAKjnHz1V%2BSK7hHPgA8FHKDuo7PMekCui3%3DjevbYgGGJr05dX%2BQ%40mail.gmail.com) on the [pgsql-general](https://www.postgresql.org/list/pgsql-general/)
-mailing list provides more discussion.
+whenever data is modified, the database applies the update to a transaction-scoped copy of
+the object, marking the original as invalid once the transaction commits. This ordinarily
+occurs at the row level, but in the case of a LO, the entire binary data page underlying it
+must be copied because the data is opaque and the database cannot infer anything about its
+internal structure. Needless to say, this is highly inefficient for small data writes such as
+a single sample value, and thus LOs are only suitable for immutable or infrequently updated
+data. This [thread](https://www.postgresql.org/message-id/CAKjnHz1V%2BSK7hHPgA8FHKDuo7PMekCui3%3DjevbYgGGJr05dX%2BQ%40mail.gmail.com)
+on the [pgsql-general](https://www.postgresql.org/list/pgsql-general/) mailing list provides
+more discussion.
 
 At some point, development may be restarted when a suitable alternate implementation is
 identified, perhaps via a [foreign data wrapper](https://www.postgresql.org/docs/current/ddl-foreign-data.html)
